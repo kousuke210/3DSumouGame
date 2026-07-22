@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.Rendering;
 
 
 //勝利数を管理するクラス
