@@ -71,9 +71,9 @@ public class MatchCount : MonoBehaviour
             case 0:
                 return "2P ○○";
             case 1:
-                return "2P <color=bull>○●</color>";
+                return "2P <color=blue>○●</color>";
             case 2:
-                return "2P <color=bull>●●</color>";
+                return "2P <color=blue>●●</color>";
 
         }
         return "";
