@@ -53,11 +53,11 @@ public class MatchCount : MonoBehaviour
         switch(player1Win)
         {
             case 0:
-                return "1P ○○";
+                return "○○";
             case 1: 
-                return "1P <color=red>●○</color>";
+                return "<color=red>●○</color>";
             case 2:
-                return "1P <color=red>●●</color>";
+                return "<color=red>●●</color>";
 
         }
         return "";
@@ -69,11 +69,11 @@ public class MatchCount : MonoBehaviour
         switch (player2Win)
         {
             case 0:
-                return "2P ○○";
+                return "○○";
             case 1:
-                return "2P <color=blue>○●</color>";
+                return "<color=blue>○●</color>";
             case 2:
-                return "2P <color=blue>●●</color>";
+                return "<color=blue>●●</color>";
 
         }
         return "";
