@@ -198,9 +198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b960e3d52466354f9ae15447326e57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::walkingsupport
-  moveForce: 20
-  turnSpeed: 100
-  rb: {fileID: 0}
 --- !u!1 &189919097 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7812768958183290519, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
@@ -510,11 +507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91a4f4905ffdad48a01e62b484b5ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::walking
-  stepSpeed: 5
-  legTorque: 80
-  liftTorque: 80
-  isLeftLeg: 0
-  rb: {fileID: 0}
 --- !u!1 &391343193 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2738477555834647388, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
@@ -1456,11 +1448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91a4f4905ffdad48a01e62b484b5ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::walking
-  stepSpeed: 5
-  legTorque: 80
-  liftTorque: 80
-  isLeftLeg: 0
-  rb: {fileID: 0}
 --- !u!1 &1149224944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 677854297220084796, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
@@ -1674,7 +1661,7 @@ MonoBehaviour:
   actionKey: 32
   thrustForce: 300
   thrustDuration: 0.15
-  returnSpeed: 10
+  returnSpeed: 100
   damping: 50
 --- !u!1 &1290590768 stripped
 GameObject:
