@@ -4,16 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ArmThrust : MonoBehaviour
 {
-    [Header("キー設定")]
-    [SerializeField] private KeyCode actionKey = KeyCode.Space;
+    [Header("操作設定")]
+    [Tooltip("コントローラーのボタン指定")]
+    [SerializeField] private KeyCode controllerButton = KeyCode.JoystickButton1;
 
     [Header("突き出しパラメータ")]
-    [SerializeField] private float thrustForce = 500f;     // 前に突き出す力
-    [SerializeField] private float thrustDuration = 0.12f; // 突き出し時間
+    [SerializeField] private float thrustForce = 500f;
+    [SerializeField] private float thrustDuration = 0.12f;
 
     [Header("元の位置に戻る力（復元）")]
-    [SerializeField] private float returnSpeed = 10f;      // 元の位置に戻る速さ
-    [SerializeField] private float damping = 20f;          // 揺れを抑える力
+    [SerializeField] private float returnSpeed = 10f;
+    [SerializeField] private float damping = 20f;
 
     private Rigidbody rb;
     private Quaternion initialLocalRotation;
@@ -26,13 +27,27 @@ public class ArmThrust : MonoBehaviour
 
     private void Start()
     {
-        // 初期角度（下ろした状態）を記憶
         initialLocalRotation = transform.localRotation;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(actionKey) && !isThrusting)
+        // デバッグ用：何かしらのジョイスティックボタンが押されたらログを出す
+        for (int i = 0; i < 20; i++)
+        {
+            KeyCode code = KeyCode.JoystickButton0 + i;
+            if (Input.GetKeyDown(code))
+            {
+                Debug.Log($"押されたボタンの番号: {code}");
+            }
+        }
+        if ((Input.GetButtonDown("Cancel") || Input.GetButtonDown("Fire2")) && !isThrusting)
+        {
+            Debug.Log("Bボタンを検知しました！");
+            StartCoroutine(ThrustRoutine());
+        }
+        // 割り当てられたボタンで実行
+        if (Input.GetKeyDown(controllerButton) && !isThrusting)
         {
             StartCoroutine(ThrustRoutine());
         }
@@ -40,7 +55,6 @@ public class ArmThrust : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 突き出し時以外は、安全に初期角度へ引き戻す
         if (!isThrusting)
         {
             ResetArmRotation();
@@ -64,18 +78,11 @@ public class ArmThrust : MonoBehaviour
         isThrusting = false;
     }
 
-    /// <summary>
-    /// 安定して腕を初期位置に戻す処理
-    /// </summary>
     private void ResetArmRotation()
     {
-        // 現在のローカル角度から初期角度への滑らかな補間目標を計算
         Quaternion targetLocal = Quaternion.Slerp(transform.localRotation, initialLocalRotation, Time.fixedDeltaTime * returnSpeed);
-
-        // 親（胴体）の回転を考慮してワールド角度に変換
         Quaternion targetWorld = transform.parent != null ? transform.parent.rotation * targetLocal : targetLocal;
 
-        // 目標角度への角速度（トルク）を計算して加える
         Quaternion delta = targetWorld * Quaternion.Inverse(transform.rotation);
         delta.ToAngleAxis(out float angle, out Vector3 axis);
 
