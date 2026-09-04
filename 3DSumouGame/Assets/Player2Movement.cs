@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : MonoBehaviour
+public class Player2Movement : MonoBehaviour
 {
     public float speed = 5.0f;
     private CharacterController controller;
@@ -13,15 +13,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // WASD入力（または矢印キー）を取得
-        float horizontal = Input.GetAxis("Horizontal"); // A, D / 左, 右
-        float vertical = Input.GetAxis("Vertical");     // W, S / 上, 下
+        // 2P用の入力（2台目のコントローラー用）
+        // ※もしInput Managerで名前を変えた場合は、ここの文字列も合わせてください
+        float horizontal = Input.GetAxis("Horizontal_2P");
+        float vertical = Input.GetAxis("Vertical_2P");
 
         Vector3 direction = new Vector3(horizontal, 0, vertical);
 
         if (direction.magnitude > 0.1f)
         {
-            // 向いている方向に移動させる
+            direction.y = 0f;
             controller.SimpleMove(direction * speed);
         }
     }
