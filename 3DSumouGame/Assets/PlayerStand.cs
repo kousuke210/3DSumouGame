@@ -3,11 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerStand : MonoBehaviour
 {
-    [Header("自立パラメータ")]
-    [Tooltip("直立しようとする力（筋力）")]
+    [Tooltip("直立しようとする力")]
     [SerializeField] private float uprightTorque = 150f;
 
-    [Tooltip("揺れを抑える力（減衰）")]
+    [Tooltip("揺れを抑える力")]
     [SerializeField] private float damping = 15f;
 
     private Rigidbody rb;
@@ -21,7 +20,7 @@ public class PlayerStand : MonoBehaviour
 
     private void Start()
     {
-        // ゲーム開始時のローカル角度（初期姿勢）を正しい立ち姿勢として記憶する
+        // ゲーム開始時の角度を正しい立ち姿勢として記憶する
         initialLocalRotation = transform.localRotation;
     }
 
@@ -32,11 +31,11 @@ public class PlayerStand : MonoBehaviour
 
     private void KeepUpright()
     {
-        // 親（またはワールド）に対する現在のローカル回転と初期回転の差分を計算
+        // 親またはワールドに対する現在のローカル回転と初期回転の差分を計算
         Quaternion currentLocalRotation = transform.localRotation;
         Quaternion targetRotation = initialLocalRotation;
 
-        // ズレの角度（Rotation）を取得
+        // ズレの角度を取得
         Quaternion deltaRotation = targetRotation * Quaternion.Inverse(currentLocalRotation);
         deltaRotation.ToAngleAxis(out float angle, out Vector3 axis);
 

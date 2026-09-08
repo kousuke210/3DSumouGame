@@ -4,7 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ArmThrust : MonoBehaviour
 {
-    [Header("操作設定")]
     [Tooltip("コントローラーのボタン指定")]
     [SerializeField] private KeyCode controllerButton = KeyCode.JoystickButton1;
 
@@ -12,7 +11,7 @@ public class ArmThrust : MonoBehaviour
     [SerializeField] private float thrustForce = 500f;
     [SerializeField] private float thrustDuration = 0.12f;
 
-    [Header("元の位置に戻る力（復元）")]
+    [Header("元の位置に戻る力")]
     [SerializeField] private float returnSpeed = 10f;
     [SerializeField] private float damping = 20f;
 
@@ -32,20 +31,7 @@ public class ArmThrust : MonoBehaviour
 
     private void Update()
     {
-        // デバッグ用：何かしらのジョイスティックボタンが押されたらログを出す
-        for (int i = 0; i < 20; i++)
-        {
-            KeyCode code = KeyCode.JoystickButton0 + i;
-            if (Input.GetKeyDown(code))
-            {
-                Debug.Log($"押されたボタンの番号: {code}");
-            }
-        }
-        if ((Input.GetButtonDown("Cancel") || Input.GetButtonDown("Fire2")) && !isThrusting)
-        {
-            Debug.Log("Bボタンを検知しました！");
-            StartCoroutine(ThrustRoutine());
-        }
+     
         // 割り当てられたボタンで実行
         if (Input.GetKeyDown(controllerButton) && !isThrusting)
         {
@@ -61,6 +47,7 @@ public class ArmThrust : MonoBehaviour
         }
     }
 
+    //腕を突き出す
     private IEnumerator ThrustRoutine()
     {
         isThrusting = true;
@@ -78,6 +65,7 @@ public class ArmThrust : MonoBehaviour
         isThrusting = false;
     }
 
+    //突き出した腕を戻す
     private void ResetArmRotation()
     {
         Quaternion targetLocal = Quaternion.Slerp(transform.localRotation, initialLocalRotation, Time.fixedDeltaTime * returnSpeed);
